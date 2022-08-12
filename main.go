@@ -32,10 +32,13 @@ func main() {
 
 	router := gin.Default()
 
-	router.GET("/books", bookHandler.GetAll)
-	// router.GET("/books/:id", book.BooksHandler)
-	// router.GET("/query", book.QueryHandler)
-	router.POST("/books", bookHandler.Create)
+	booksRouter := router.Group("books")
+
+	booksRouter.GET("/", bookHandler.GetAll)
+	booksRouter.GET("/:id", bookHandler.GetById)
+	booksRouter.POST("/", bookHandler.Create)
+	booksRouter.PUT("/:id", bookHandler.Update)
+	booksRouter.DELETE("/:id", bookHandler.Delete)
 
 	router.Run()
 }
